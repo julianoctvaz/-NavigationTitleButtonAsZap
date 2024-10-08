@@ -85,7 +85,7 @@ struct ContentView: View {
             
             ScrollView {
                 
-                Section(header: ButtonHeaderView()) {
+                Section(header: ButtonsHeaderView()) {
                     
                     ForEach(conversations.indices, id: \.self) { index in
                         NavigationLink(destination: ConversationDetailView(conversation: conversations[index])
@@ -127,7 +127,7 @@ struct ContentView: View {
     }
 }
 
-struct ButtonHeaderView: View {
+struct ButtonsHeaderView: View {
     
     @State private var showAlert: Bool = false
     
