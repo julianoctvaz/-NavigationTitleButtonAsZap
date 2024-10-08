@@ -109,6 +109,7 @@ struct ContentView: View {
         }
     }
     
+    
     private func makeCellItem(of conversation: Conversation, from index: Int) -> some View {
         return HStack {
             VStack (alignment: .leading) {
