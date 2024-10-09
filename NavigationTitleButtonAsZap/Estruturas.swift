@@ -154,7 +154,7 @@ struct ButtonsHeaderView: View {
         ZStack {
             EmptyView()
                 .frame(width: 0, height: 0)
-            //aqui mora o problema
+            //sebosidade
         }
         .toolbar {
             
