@@ -93,10 +93,6 @@ struct ContentView: View {
                             
                             makeCellItem(of: conversations[index], from: index)
                         }
-                        
-                        if conversations[index] != conversations.last {
-                            Divider()
-                        }
                     }
                     .padding(.vertical, 1)
                 }
@@ -111,20 +107,26 @@ struct ContentView: View {
     
     
     private func makeCellItem(of conversation: Conversation, from index: Int) -> some View {
-        return HStack {
-            VStack (alignment: .leading) {
-                Text(conversation.username)
-                    .font(.headline)
-                Text(conversation.lastMessage)
-                    .font(.subheadline)
+        return VStack {
+            HStack {
+                VStack (alignment: .leading) {
+                    Text(conversation.username)
+                        .font(.headline)
+                    Text(conversation.lastMessage)
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
+                        .multilineTextAlignment(.leading)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
                     .foregroundStyle(.gray)
-                    .multilineTextAlignment(.leading)
             }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.gray)
+            .padding(.vertical, 5)
+            
+            if conversations[index] != conversations.last {
+                Divider()
+            }
         }
-        .padding(.vertical, 5)
     }
 }
 
