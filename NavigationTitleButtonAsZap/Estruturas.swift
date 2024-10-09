@@ -76,95 +76,104 @@ struct AllConversationsView: View {
     }
 }
 
-
 struct ContentView: View {
+    
+    @State var showAlert: Bool = false
     
     var body: some View {
         
         NavigationStack {
             
-            ScrollView {
-                
-                Section(header: ButtonsHeaderView()) {
-                    
-                    ForEach(conversations.indices, id: \.self) { index in
-                        NavigationLink(destination: ConversationDetailView(conversation: conversations[index])
-                        ) {
-                            
-                            makeCellItem(of: conversations[index], from: index)
-                        }
-                        
-                        if conversations[index] != conversations.last {
-                            Divider()
-                        }
+            VStack {
+                Text("Texto Simples")
+                Spacer()
+            }
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(
+                        action: {
+                            showAlert = true
+                        }, label:
+                            {
+                                Image(systemName: "plus")
+                            }
+                    ).alert(isPresented: $showAlert) { //alerta do botao
+                        Alert(
+                            title: Text("Cria nova conversação"),
+                            message: Text("Essa tela ainda esta sendo feita"),
+                            dismissButton: .default(Text("OK"))
+                        )
                     }
-                    .padding(.vertical, 1)
                 }
-                .padding(.horizontal, 20)
-                
-                Spacer() //sobe secao
-                
+                ToolbarItem(placement: .principal) {
+                    NavigationLink(destination: AllConversationsView()) {
+                        Text("Conversas")
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                    }
+                }
             }
-            .padding(.top, -20) //diminui margem branca
         }
-    }
-    
-    
-    private func makeCellItem(of conversation: Conversation, from index: Int) -> some View {
-        return HStack {
-            VStack (alignment: .leading) {
-                Text(conversation.username)
-                    .font(.headline)
-                Text(conversation.lastMessage)
-                    .font(.subheadline)
-                    .foregroundStyle(.gray)
-                    .multilineTextAlignment(.leading)
-            }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.gray)
-        }
-        .padding(.vertical, 5)
+        .padding(.top, -20) //diminui margem branca
     }
 }
 
-struct ButtonsHeaderView: View {
-    
-    @State private var showAlert: Bool = false
-    
-    var body: some View {
-        ZStack {
-            EmptyView()
-                .frame(width: 0, height: 0)
-            //aqui mora o problema
+
+private func makeCellItem(of conversation: Conversation) -> some View {
+    return HStack {
+        VStack (alignment: .leading) {
+            Text(conversation.username)
+                .font(.headline)
+            Text(conversation.lastMessage)
+                .font(.subheadline)
+                .foregroundStyle(.gray)
+                .multilineTextAlignment(.leading)
         }
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button(
-                    action: {
-                        showAlert = true
-                    }, label:
-                        {
-                            Image(systemName: "plus")
-                        }
-                ).alert(isPresented: $showAlert) { //alerta do botao
-                    Alert(
-                        title: Text("Cria nova conversação"),
-                        message: Text("Essa tela ainda esta sendo feita"),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
-            }
-            ToolbarItem(placement: .principal) {
-                NavigationLink(destination: AllConversationsView()) {
-                    Text("Conversas")
-                        .font(.headline)
-                        .foregroundColor(.blue)
-                }
-            }
-        }
+        Spacer()
+        Image(systemName: "chevron.right")
+            .foregroundStyle(.gray)
     }
+    .padding(.vertical, 5)
 }
+
+
+//struct ButtonsHeaderView: View {
+//
+//    @State private var showAlert: Bool = false
+//
+//    var body: some View {
+//        ZStack {
+//            EmptyView()
+//                .frame(width: 0, height: 0)
+//            //aqui mora o problema
+//        }
+//        .toolbar {
+//            ToolbarItem(placement: .primaryAction) {
+//                Button(
+//                    action: {
+//                        showAlert = true
+//                    }, label:
+//                        {
+//                            Image(systemName: "plus")
+//                        }
+//                ).alert(isPresented: $showAlert) { //alerta do botao
+//                    Alert(
+//                        title: Text("Cria nova conversação"),
+//                        message: Text("Essa tela ainda esta sendo feita"),
+//                        dismissButton: .default(Text("OK"))
+//                    )
+//                }
+//            }
+//            ToolbarItem(placement: .principal) {
+//                NavigationLink(destination: AllConversationsView()) {
+//                    Text("Conversas")
+//                        .font(.headline)
+//                        .foregroundColor(.blue)
+//                }
+//            }
+//        }
+//    }
+//}
 
 #Preview {
     ContentView()
