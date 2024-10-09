@@ -115,7 +115,7 @@ struct ContentView: View {
                 Spacer() //sobe secao
                 
             } // scrollView
-            .padding(.top, -20) //diminui margem branca
+            .navigationBarTitleDisplayMode(.inline)
             
         }// navigationsStack
         
